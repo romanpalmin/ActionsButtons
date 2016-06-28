@@ -26,10 +26,8 @@
                     }
                 }
             }
-            console.log('Ставим');
             button.setAttribute('disabled', 'disabled');
             setTimeout(function(){
-                console.log('Снимаем');
                 button.disabled = false;
             }, 3000);
 
