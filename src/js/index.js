@@ -32,23 +32,26 @@
 
     // функция таймера и добавления баллов, запускаемая кнопками
     function ActivateAction(action, button){
-        var times = +action.recovery_time;
-        var timerId;
+        getJSON('data/response.json', function(resp){
+            var times = +action.recovery_time;
+            var timerId;
+            if (resp && resp.status === 'ok') {
+                button.setAttribute('disabled', 'disabled');
+                balanceCurrent += (+action.points);
+                balance.innerHTML = balanceCurrent ;
+                button.innerHTML = timer(times);
+                timerId = setInterval(function() {
+                    times--;
+                    button.innerHTML = timer(times);
+                }, 1000);
 
-        button.setAttribute('disabled', 'disabled');
-        balanceCurrent += (+action.points);
-        balance.innerHTML = balanceCurrent ;
-        button.innerHTML = timer(times);
-        timerId = setInterval(function() {
-            times--;
-            button.innerHTML = timer(times);
-        }, 1000);
-
-        setTimeout(function() {
-            clearInterval(timerId);
-            button.disabled = false;
-            button.innerHTML = "&nbsp;";
-        }, times*1000);
+                setTimeout(function() {
+                    clearInterval(timerId);
+                    button.disabled = false;
+                    button.innerHTML = "&nbsp;";
+                }, times*1000);
+            }
+        });
     }
 
     // Имитация ajax-загрузки
