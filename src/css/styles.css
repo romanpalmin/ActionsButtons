@@ -42,8 +42,9 @@ body {
 
 .main-form-btns {
     height: 100%;
-    line-height: 0px;
+    line-height: 0;
     vertical-align: middle;
+    color:#fff;
 }
 
 .main-forms-btns_btn{
@@ -61,6 +62,9 @@ body {
     font-size: 19pt;
     font-weight: bolder;
     opacity: 0.7;
+    color: initial;
+    font-style: italic;
+    text-shadow: 2px 2px 3px black, 0 0 1em #fff;
 }
 
 .main-forms-btns_btn-wrapper{
@@ -69,7 +73,7 @@ body {
 }
 
 .main-form-btns_balance{
-    color: #fff;
+
     height: 85px;
     line-height: 85px;
     padding-right: 60px;
@@ -86,21 +90,20 @@ body {
 
 }
 
-.img-milk:hover:enabled{
-    background: url("../images/milk.png") no-repeat scroll 0 0 ;
-}
-
 .img-meat{
     background: url("../images/meat.png") no-repeat scroll center;
 }
 
-.img-meat:hover:enabled{
-    background: url("../images/meat.png") no-repeat scroll 0 0;
-}
-
-
 .img-storm{
     background: url("../images/storm.png") no-repeat scroll center;
+}
+
+.img-milk:hover:enabled{
+    background: url("../images/milk.png") no-repeat scroll 0 0 ;
+}
+
+.img-meat:hover:enabled{
+    background: url("../images/meat.png") no-repeat scroll 0 0;
 }
 
 .img-storm:hover:enabled{
@@ -113,4 +116,5 @@ body {
     color: white;
     font-size: 35px;
     font-weight: bolder;
+    font-style: italic;
 }

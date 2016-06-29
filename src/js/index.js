@@ -3,8 +3,6 @@
     var balance = node.getElementsByTagName('span')[0];
     var balanceCurrent = 123;
 
-    Init();
-
     function Init() {
         var buttons = node.getElementsByTagName('button');
         for (var i = 0 ; i < buttons.length; i++){
@@ -26,19 +24,27 @@
                     }
                 }
             }
-            button.setAttribute('disabled', 'disabled');
-            setTimeout(function(){
-                button.disabled = false;
-            }, 3000);
-
-            MainRoutine(action);
+            ActivateAction(action, button);
         });
     }
 
-    function MainRoutine(action){
+    function ActivateAction(action, button){
+        var times = +action.recovery_time;
+        button.setAttribute('disabled', 'disabled');
         balanceCurrent += (+action.points);
         balance.innerHTML = balanceCurrent ;
-        return action;
+        button.innerHTML = timer(times);
+
+        var timerId = setInterval(function() {
+            times--;
+            button.innerHTML = timer(times);
+        }, 1000);
+
+        setTimeout(function() {
+            clearInterval(timerId);
+            button.disabled = false;
+            button.innerHTML = "&nbsp;";
+        }, times*1000);
     }
 
     function getJSON(url, cb) {
@@ -50,4 +56,23 @@
         };
         xhr.send();
     }
+
+    // возвращает строку таймера
+    function timer (srcTime){
+        var secInHours = 3600;
+        var secInMinutes = 60;
+        var time = srcTime;
+        var hours = Math.floor(time/secInHours);
+        var minutes = Math.floor(( time % secInHours ) / secInMinutes);
+        var seconds = time - minutes*secInMinutes - hours*secInHours;
+        var timer;
+
+        hours = hours === 0 ? '' : (hours < 10 ? '0' + hours + ':': '' + hours + ':');
+        minutes = minutes < 10 ? '0' + minutes + ':' :  + minutes + ':';
+        seconds = seconds < 10 ? '0' + seconds : '' + seconds;
+        timer = hours + minutes + seconds;
+        return timer;
+    }
+
+    Init();
 })();
