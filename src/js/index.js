@@ -3,6 +3,7 @@
     var balance = node.getElementsByTagName('span')[0];
     var balanceCurrent = 123;
 
+    // Инициализация приложения и привязка событий
     function Init() {
         var buttons = node.getElementsByTagName('button');
         for (var i = 0 ; i < buttons.length; i++){
@@ -13,6 +14,7 @@
         balance.innerHTML = balanceCurrent;
     }
 
+    // Загрузка данных с "сервера" и активация кнопок
     function GetActionByButtonId(button){
         var action = {};
         getJSON('data/actions.json', function(resp){
@@ -28,14 +30,16 @@
         });
     }
 
+    // функция таймера и добавления баллов, запускаемая кнопками
     function ActivateAction(action, button){
         var times = +action.recovery_time;
+        var timerId;
+
         button.setAttribute('disabled', 'disabled');
         balanceCurrent += (+action.points);
         balance.innerHTML = balanceCurrent ;
         button.innerHTML = timer(times);
-
-        var timerId = setInterval(function() {
+        timerId = setInterval(function() {
             times--;
             button.innerHTML = timer(times);
         }, 1000);
@@ -47,6 +51,7 @@
         }, times*1000);
     }
 
+    // Имитация ajax-загрузки
     function getJSON(url, cb) {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url, true);
@@ -74,5 +79,6 @@
         return timer;
     }
 
+    // Точка входа
     Init();
 })();
